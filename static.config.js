@@ -1,24 +1,11 @@
 import axios from 'axios';
 
-export const FETCH_POSTS = 'FETCH_POSTS';
-const API_BASE_URL = 'https://cdn.contentful.com';
-const API_SPACE_ID = 'buyxxxxxxx';
-const API_TOKEN = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-export function fetchPosts() {
-  const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_KEY}&content_type=post`);
-  return {
-    type: FETCH_POSTS,
-    payload: request
-  };
-}
-
-
 export default {
   getSiteData: () => ({
     title: 'React Static',
   }),
   getRoutes: async () => {
-    const { data: posts } = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    const { data: posts } = await axios.get('https://cdn.contentful.com/spaces/ktzy763tkqls/entries?access_token=20abc773a8c638e9ea5ff2729e5000b5c829f6399c710ffb6e169bd890eb5998&content_type=blogPost&select=fields')
     return [
       {
         path: '/',
@@ -31,11 +18,13 @@ export default {
       {
         path: '/blog',
         component: 'src/containers/Blog',
-        getData: () => ({
-          posts,
-        }),
-        children: posts.map(post => ({
-          path: `/post/${post.id}`,
+        getData: () => {
+          return ({
+            posts,
+          })
+        },
+        children: posts.items.map(post => ({
+          path: `/post/${post.fields.id}`,
           component: 'src/containers/Post',
           getData: () => ({
             post,

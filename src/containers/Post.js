@@ -6,7 +6,8 @@ export default withRouteData(({ post }) => (
   <div>
     <Link to="/blog/">{'<'} Back</Link>
     <br />
-    <h3>{post.title}</h3>
-    <p>{post.body}</p>
+    <h3>{post.fields.title}</h3>
+    <h4>{post.fields.subtitle}</h4>
+    <p>{post.fields.body}</p>
   </div>
 ))
