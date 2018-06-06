@@ -72,7 +72,7 @@ const AnimatedRoutes = getContext({
           })}
         >
           {nodes => (
-            <div style={{ position: 'relative' }}>
+            <div className="container" style={{ position: 'relative' }}>
               {nodes.map(({ key, data, state: { opacity, translateY } }) => {
                 // Here, we override the router context with the one that was
                 // passed with each route
@@ -83,7 +83,7 @@ const AnimatedRoutes = getContext({
                   () => ({
                     router: data.router,
                   }),
-                )(props => <div {...props} />)
+                )(props => <div className="container" {...props} />)
 
                 return (
                   <PreservedRouterContext
@@ -95,6 +95,8 @@ const AnimatedRoutes = getContext({
                       bottom: 0,
                       left: 0,
                       transform: `translateY(${translateY}px)`,
+                      width: '100%',
+                      height: '100%',
                       opacity,
                     }}
                   >
@@ -112,15 +114,8 @@ const AnimatedRoutes = getContext({
 
 const App = () => (
   <Router>
-    <div>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/blog">Blog</Link>
-      </nav>
-      <div className="content">
-        <Routes component={AnimatedRoutes} />
-      </div>
+    <div className="container">
+      <Routes component={AnimatedRoutes} />
     </div>
   </Router>
 )
